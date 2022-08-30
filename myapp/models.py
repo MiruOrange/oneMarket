@@ -1,13 +1,11 @@
 from django.db import models
 
 # Create your models here.
-class customer(models.Model):
-    name = models.CharField(max_length=20, null=False)
-    phone = models.CharField(max_length = 10, null=False)
-    email = models.EmailField(max_length=50, null=False)
-    address = models.CharField(max_length=50, null=False)
-    message = models.CharField(max_length=200, null=False)
-    itemAmount = models.CharField(max_length=200, null=True)
-
+class product(models.Model):
+    pname = models.CharField(max_length=20 ,null=False)
+    pprice = models.IntegerField(null=False)
+    pdescription = models.TextField(max_length=255, null = False)
+    pimage = models.CharField(max_length=20, null=False)
+    pstock = models.IntegerField(null=False)
     def __str__(self):
-        return self.name
+        return self.pname
