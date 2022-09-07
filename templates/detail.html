@@ -1,6 +1,36 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block title %}
+<title>詳細商品資訊</title>
+<style>
+    .detail-main{
+        display:flex;
+    }
+    .detail-left h3{
+        text-align:center;
+    }
+</style>
 {% endblock %}
 {% block content %}
+<div class="detail-main">
+    <div class="detail-left">
+        <div class="left-up">
+            <img src="/static/images/detail/{{product.pimage}}" alt="">
+        </div>
+        <div class="left-down">
+            <div class="product-name">
+                <h3>特價</h3>              
+            </div>
+            <div class="product-price">
+                <h3>${{product.pprice}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="detail-right">
+        <h3>產品名稱</h3>
+        <p>{{product.pname}}</p>
+        <h3>產品介紹</h3>
+        <p>{{product.pdescription}}</p>
+    </div>
+</div>
 {% endblock %}

@@ -58,4 +58,8 @@ def useradd(request):
         password_check=True #密碼檢查
         return render(request, "useradd2.html",locals()) 
     # return HttpResponse("測試")
+
+def detail(request, id=None):
+    product = ProductModel.objects.get(id=id)
+    return render(request, 'detail.html', locals())
     
