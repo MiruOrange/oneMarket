@@ -62,4 +62,7 @@ def useradd(request):
 def detail(request, id=None):
     product = ProductModel.objects.get(id=id)
     return render(request, 'detail.html', locals())
+
+def addtocart(request, id):
+    return HttpResponse(id)
     

@@ -23,5 +23,6 @@ urlpatterns = [
     path('index/', views.index),
     path('userlogin/',views.userlogin),
     path('useradd/',views.useradd),
-    path('detail/<str:id>/', views.detail),
+    path('detail/<int:id>/', views.detail),
+    path('addtocart/<int:id>/', views.addtocart),
 ]
