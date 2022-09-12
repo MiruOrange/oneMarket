@@ -5,33 +5,49 @@
 <style>
     .detail-main{
         display:flex;
+        padding-top: 60px;
+        padding-left: 10%;
+        padding-bottom: 60px;
     }
     .detail-left h3{
         text-align:center;
     }
+    .h3, .h4{
+        font-weight: bold;
+    }
+    .col-7{
+        padding-left: 50px;
+    }
 </style>
 {% endblock %}
 {% block content %}
-<div class="detail-main">
-    <div class="detail-left">
+<div class="detail-main"> <!-- 欄位滿版 -->
+    <div class="col-5" >
         <div class="left-up">
-            <img src="/static/images/detail/{{product.pimage}}" alt="">
-        </div>
-        <div class="left-down">
-            <div class="product-name">
-                <h3>特價</h3>              
-            </div>
-            <div class="product-price">
-                <h3>${{product.pprice}}</h3>
-            </div>
+            <img src="/static/images/products/{{product.pimage}}" alt="" width="90%"  width="30%" class="rounded-3" >
         </div>
     </div>
-    <div class="detail-right">
-        <h3>產品名稱</h3>
-        <p>{{product.pname}}</p>
-        <h3>產品介紹</h3>
-        <p>{{product.pdescription}}</p>
-        <p><a href="/addtocart/{{product.id}}/">加入購物車</a></p>
+    <div class="col-7">
+        <div class="detail-right">
+            <div>
+                <div class="color-lump"><h2 style="padding-left: 60px;">{{product.pname}}</h2></div>
+                <br>
+                <h4>產品介紹</h4>
+                <div  style="padding-top: 10px"><p>{{product.pdescription}}</p></div>
+            </div>
+        </div>
+        <br>
+        <div class="left-down">
+            <div class="product-name">
+                <h3>特價 ${{product.pprice}}</h3>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary btn-lg" href="/addtocart/{{product.id}}/">加入購物車</button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
