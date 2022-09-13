@@ -24,5 +24,6 @@ urlpatterns = [
     path('userlogin/',views.userlogin),
     path('useradd/',views.useradd),
     path('detail/<int:id>/', views.detail),
-    path('addtocart/<int:id>/', views.addtocart),
+    path('cart/', views.cart),
+    path('addtocart/<str:type>/<int:id>/', views.addtocart),
 ]

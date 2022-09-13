@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from myapp.models import ProductModel, OrderModel, DetailModel
 
 # Create your views here.
+cartlist = []  #用來存放選購的商品串列
+shipping =100
+#如((苦無, 2000, 1, 2000), (血輪眼, 10000, 1, 10000), (軍糧丸, 2000, 1, 2000))
 
 def index(request):
     products = ProductModel.objects.all()
@@ -63,6 +66,37 @@ def detail(request, id=None):
     product = ProductModel.objects.get(id=id)
     return render(request, 'detail.html', locals())
 
-def addtocart(request, id):
-    return HttpResponse(id)
+def addtocart(request, type=None, id=None):
+    global cartlist      #取得session，裡面放著客戶選購的物品
+    if type == 'add':
+        product = ProductModel.objects.get(id=id)
+        flag = True          #True，表示購物車session內沒有商品
+        for unit in cartlist:                               #檢查購物車內是否已經有該品項商品，如果有，把數量加1
+            if product.pname == unit[0]:                    #如果cartlist的session中有該選購商品的話
+                unit[2] = str(int(unit[2])+1)               #商品數量加1
+                unit[3] = str(int(unit[3])+product.pprice)  #購物車累計的商品金額，再加一筆商品單價，累計金額增加了
+                flag = False                                #表示購物車session內已經有商品了
+                break
+        if flag:                                    #如果購物車內沒有商品
+            templist = []    #暫時串列
+            templist.append(product.pname)          #0的位置放入選購商品名稱
+            templist.append(str(product.pprice))    #1的位置放入商品單價
+            templist.append('1')                    #2的位置放入暫訂選購商品數量為1
+            templist.append(str(product.pprice))    #3的位置放入暫訂選購商品總價
+            cartlist.append(templist)   #將暫時串列，放入購物車的串列。
+        request.session['cartlist']=cartlist    #將購物車放入串列
+        return redirect('/cart/')
+
+def cart (request):
+    global cartlist
+    global shipping
+    cartlist1 = cartlist    #把cartlist轉成區域變數，要傳到cart.html
+    localshipping = shipping
+    total = 0
+    for unit in cartlist:
+        total = total +int(unit[3])  #第3個位置，固定存放目前累計的商品金額
+    grandtotal = total + localshipping   #總價，要加上運費，最前面定義為100元。
+    return render(request, 'cart.html', locals())
+            
+
     

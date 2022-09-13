@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}
+<title>購物車</title>
+<style>
+    .table-hover th, td{
+        text-align:center;
+    }
+    .cart-button{
+        text-align:center;
+        margin-bottom: 30px;
+    }
+    
+</style>
+{% endblock %}
+{% block content %}
+<div>
+    <form action="">
+        {% csrf_token %}
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>取消</th>
+                <th>名稱</th>
+                <th>單價</th>
+                <th>數量</th>
+                <th>金額</th>
+            </tr>
+            {% for unit in cartlist1 %}
+            <tr>
+                <td>刪除</td>
+                <td>{{unit.0}}</td>
+                <td>{{unit.1}}</td>
+                <td>{{unit.2}}</td>
+                <td>{{unit.3}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">金額小計</td>
+                <td>{{total}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">運費</td>
+                <td>{{localshipping}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">合計</td>
+                <td>{{grandtotal}}</td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+        <div class="cart-button">
+            <input class="btn btn-dark" type="button" value="繼續購物">
+            <input class="btn btn-dark" type="button" value="更新購物車">
+            <input class="btn btn-dark" type="button" value="清空購物車">
+            <input class="btn btn-dark" type="button" value="我要結帳">
+        </div>
+    </form>
+</div>
+{% endblock %}
