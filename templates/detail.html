@@ -5,56 +5,57 @@
 <style>
     .detail-main{
         display:flex;
-        padding-top: 60px;
-        padding-left: 10%;
+        padding-top: 120px;
+        padding-left: 8%;
         padding-bottom: 60px;
+        background-color: #a0a0a0;
     }
-    .detail-left h3{
+    .detail-left{
         text-align:center;
+    }
+    .detail-right{
+        padding-top: 20px;
+    }
+    .left-up{
+        padding-bottom: 20px;
     }
     .h3, .h4{
         font-weight: bold;
     }
-    .col-7{
+    .col{
         padding-left: 50px;
+    }
+    .mb-3{
+        padding-right: 10px;
     }
 </style>
 {% endblock %}
 {% block content %}
 <div class="detail-main"> <!-- 欄位滿版 -->
-    <div class="col-5" >
-        <div class="left-up">
-            <img src="/static/images/products/{{product.pimage}}" alt="" width="90%"  width="30%" class="rounded-3" >
+    <div class="row">
+        <div class="col-12 col-md-6" >
+            <div class="left-up">
+                <img src="/static/images/products/{{product.pimage}}" alt="" width="90%"  width="30%" class="rounded-3" style="box-shadow:10px 10px 10px rgb(110, 110, 110)" >
+            </div>
         </div>
-    </div>
-    <div class="col-7">
-        <div class="detail-right">
-            <div>
-                <div class="color-lump"><h2 style="padding-left: 60px;">{{product.pname}}</h2></div>
+        <div class="col-12 col-md-6">
+            <div class="detail-right">
+                <h2>{{product.pname}}</h2>
+                <h3>商品介紹</h3>
                 <br>
-                <h4>產品介紹</h4>
-                <div  style="padding-top: 10px"><p>{{product.pdescription}}</p></div>
+                <h5>{{product.pdescription}}</h5>
+                <br>
+                <div class="product-name">
+                    <h3>特價 ${{product.pprice}}</h3>
+                </div>
+            </div>
+            <br>
+            <div class="container">
+                <div class="mb-3">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="window.location='/addtocart/add/{{product.id}}/'">加入購物車</button>
+                </div>
             </div>
         </div>
-        <br>
-        <div class="left-down">
-            <div class="product-name">
-                <h3>特價 ${{product.pprice}}</h3>
-            </div>
-        </div>
-        <br>
-        <div class="container">
-            <div class="mb-3">
-                <button type="button" class="btn btn-primary btn-lg" onclick="window.location='/addtocart/add/{{product.id}}/'">加入購物車</button>
-            </div>
-        </div>
-    </div>
-    <div class="detail-right">
-        <h3>產品名稱</h3>
-        <p>{{product.pname}}</p>
-        <h3>產品介紹</h3>
-        <p>{{product.pdescription}}</p>
-        <p><a href="/addtocart/add/{{product.id}}/">加入購物車</a></p>
     </div>
 </div>
 {% endblock %}

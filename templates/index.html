@@ -4,6 +4,26 @@
 <title>歡迎來到木葉商城</title>
 {% endblock %}
 {% block content %}
+<style> /*  */ 
+    .container_card_1{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 50px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-bottom: 25px;
+    }
+    .container_card_2{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 25px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-bottom: 50px;
+    }
+</style>
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -35,6 +55,92 @@
       <span class="visually-hidden">上一頁</span>
     </button>
 </div>
+
+<div class="container_card_1" style="background-color:#a0a0a0">
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/eye1.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">萬花筒寫輪眼</div>
+            <p class="card-text">宇智波斑的萬花筒寫輪眼，您不用大義滅親就可獲得宇智波一族的強大力量，擁有它可實現無限月讀的能力!</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/Forehead2.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">木葉忍者護額</div>
+            <p class="card-text">木葉忍者村的強韌護具，每一具皆由25年以上資歷鑄造師精心鑄型，並由10名上忍注入查克拉打造而成!</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/kunai_1.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">苦無+起爆符</div>
+            <p class="card-text">春野櫻施放櫻吹雪大招時遺留下的未爆彈(?)，殘留了春野櫻身上的芬芳，宅男們千萬不可錯過。</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/MilitaryRationsPill_1.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">軍糧丸</div>
+            <p class="card-text">外出補給好妙方，增加戰鬥持久力並恢復體力與查克拉。採火之國森林新鮮藥草配製，內含春野櫻獨家配方</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/Shuriken_1.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">鉗兜羅手裏劍</div>
+            <p class="card-text">木葉忍者村的強力忍具，每一只皆由25年以上資歷鑄造師精心鑄型，並由10名上忍注入查克拉打造而成!</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+</div>
+<div class="container_card_2" style="background-color:#a0a0a0">
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/dagger_1.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">剝骨刃</div>
+            <p class="card-text">以上忍火燉之術淬鍊成之大馬士革鋼製成，25年資深鑄造師打造，削鐵如泥，取骨如絲滑般柔順，現正特價中!!</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/bayonet_1.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">凜月刺刀</div>
+            <p class="card-text">上忍火燉之術淬鍊鈦金，25年以上資歷鑄造師精心鍛造，輕巧鋒利!</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/Shuriken_2.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">枋田手裏劍</div>
+            <p class="card-text">特殊的田字造型手裏劍，中央的結構會使發出的手裏劍產生特殊氣旋，加大破壞力與範圍!!</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/bayonet_2.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">無相刺刀</div>
+            <p class="card-text">上忍火燉之術淬鍊鈦金，25年以上資歷鑄造師精心鍛造，造型簡約精緻，為七代火影上任時所限量生產的紀念忍具</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+    <div class="card" style="width: 250px">
+        <img src="/static/images/products/dagger_2.png" class="card-img-top">
+        <div class="card-body">
+            <div class="card-title" style="font-weight: bold;">蕊拉匕首</div>
+            <p class="card-text">25年資深鑄造師打造，有多重機關能展開刀刃，前後端可拆卸，用途多多!!</p>
+            <a href="#" class="btn btn-primary">商品資訊</a> <!-- card-link -->
+        </div>
+    </div>
+</div>
+
 <!--以下是圖隊介紹-->
 <div class="container py-4 py-xl-5">
     <div class="row mb-5">
