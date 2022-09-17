@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from myapp.models import ProductModel, OrderModel, DetailModel
+from myapp.models import ProductModel, OrderModel, DetailModel, ProductCardModel
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
@@ -9,6 +9,7 @@ shipping =100
 
 def index(request):
     products = ProductModel.objects.all()
+    cardProducts = ProductCardModel.objects.all()
     return render(request, 'index.html', locals())
 
 def userlogin(request):
@@ -62,8 +63,11 @@ def useradd(request):
         return render(request, "useradd2.html",locals()) 
     # return HttpResponse("測試")
 
-def detail(request, id=None):
-    product = ProductModel.objects.get(id=id)
+def detail(request,type=None ,id=None):
+    if type =='carousel':
+        product = ProductModel.objects.get(id=id)
+    elif type =='card':
+        product = ProductCardModel.objects.get(id=id)
     return render(request, 'detail.html', locals())
 
 def addtocart(request, type=None, id=None):
