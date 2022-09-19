@@ -58,10 +58,13 @@
         <div class="col">
             <div class="card h-100">
                 <img src="/static/images/products/{{product.pimage}}" class="card-img-top">
-                <div class="card-body">
+                <div class="card-body" style="background-color: #ded6d6;">
                     <div class="card-title" style="font-weight: bold;">{{product.pname}}</div>
-                    <p class="card-text">{{product.pdescription}}</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                    <p class="card-text h-50">{{product.pdescription}}</p>
+                    <div class="product-name"> 
+                        <h5>特價 ${{product.pprice}}</h5>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                         <button class="btn btn-primary me-md-2" type="button" onclick="window.location='/detail/{{product.id}}/'">商品資訊</button> 
                         <!-- card-link -->
                     </div>
