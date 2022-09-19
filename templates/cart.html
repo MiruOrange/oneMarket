@@ -18,7 +18,7 @@
 {% endblock %}
 {% block content %}
 <div class="carAll">
-    <form action="">
+    <form action="/addtocart/update/" method="POST">
         {% csrf_token %}
         <table class="table table-striped table-hover">
             <tr>
@@ -30,10 +30,13 @@
             </tr>
             {% for unit in cartlist1 %}
             <tr>
-                <td>刪除</td>
+                <td><a href="/addtocart/remove/{{forloop.counter0}}">刪除</a></td>
                 <td>{{unit.0}}</td>
                 <td>{{unit.1}}</td>
-                <td>{{unit.2}}</td>
+                <td>
+                    <input type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}"> 
+                    <!--使用forloop.counter0，因為可能會有多項商品要進行修改-->
+                </td>
                 <td>{{unit.3}}</td>
             </tr>
             {% endfor %}
@@ -53,9 +56,9 @@
             </tr>
         </table>
         <div class="cart-button">
-            <input class="btn btn-dark" type="button" value="繼續購物">
-            <input class="btn btn-dark" type="button" value="更新購物車">
-            <input class="btn btn-dark" type="button" value="清空購物車">
+            <input class="btn btn-dark" type="button" value="繼續購物" onclick="window.location='/menu/'">
+            <input class="btn btn-dark" type="submit" value="更新購物車">
+            <input class="btn btn-dark" type="button" value="清空購物車" onclick="window.location='/addtocart/empty/'">
             <input class="btn btn-dark" type="button" value="我要結帳">
         </div>
     </form>

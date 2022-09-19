@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>商品目錄</title>
+{% endblock %}
+{% block content %}
+<div class="container_card" style="background-color:#a0a0a0">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-5 mx-auto">
+        {% for product in products%}
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/images/products/{{product.pimage}}" class="card-img-top">
+                <div class="card-body">
+                    <div class="card-title" style="font-weight: bold;">{{product.pname}}</div>
+                    <p class="card-text">{{product.pdescription}}</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <button class="btn btn-primary me-md-2" type="button" onclick="window.location='/detail/{{product.id}}/'">商品資訊</button> 
+                        <!-- card-link -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

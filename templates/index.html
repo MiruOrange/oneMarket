@@ -32,15 +32,15 @@
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
     </div>
     <div class="carousel-inner">
-        {% for product in products %}
-        <div class="carousel-item {% if product.pimage == 'eye1.png' %}active{% endif %}">
-            <a href="/detail/carousel/{{product.id}}/"><img src="/static/images/products/{{product.pimage}}" class="d-block w-100" alt="..."></a>
-            <div class="carousel-caption d-none d-md-block">
-              <h5>{{product.pname}}</h5>
-              <p>{{product.pdescription}}</p>
+        {% for product in productlist %}
+            <div class="carousel-item {% if product.pimage == 'eye1.png' %}active{% endif %}">
+                <a href="/detail/{{product.id}}/"><img src="/static/images/products/{{product.pimage}}" class="d-block w-100" alt="..."></a>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>{{product.pname}}</h5>
+                  <p>{{product.pdescription}}</p>
+                </div>
             </div>
-          </div>
-        {% endfor %}
+        {% endfor %} 
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -54,15 +54,15 @@
 <!--以下是card商品欄位-->
 <div class="container_card" style="background-color:#a0a0a0">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-5 mx-auto">
-        {% for cardProduct in cardProducts%}
+        {% for product in products%}
         <div class="col">
             <div class="card h-100">
-                <img src="/static/images/products/{{cardProduct.pimage}}" class="card-img-top">
+                <img src="/static/images/products/{{product.pimage}}" class="card-img-top">
                 <div class="card-body">
-                    <div class="card-title" style="font-weight: bold;">{{cardProduct.pname}}</div>
-                    <p class="card-text">{{cardProduct.pdescription}}</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-primary me-md-2" type="button" onclick="window.location='/detail/card/{{cardProduct.id}}/'">商品資訊</button> 
+                    <div class="card-title" style="font-weight: bold;">{{product.pname}}</div>
+                    <p class="card-text">{{product.pdescription}}</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <button class="btn btn-primary me-md-2" type="button" onclick="window.location='/detail/{{product.id}}/'">商品資訊</button> 
                         <!-- card-link -->
                     </div>
                 </div>
