@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from myapp.models import ProductModel, OrderModel, DetailModel, ProductCardModel
+from myapp.models import ProductModel, OrderModel, DetailModel
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
