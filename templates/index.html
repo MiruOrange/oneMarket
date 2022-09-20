@@ -8,14 +8,27 @@
         flex-direction: row;
         justify-content: space-between;
         padding: 50px;
+        background-image:url("/static/images/detail/bg_image.png");
+        background-repeat: repeat;
+        padding-top: 50px;
     }
     .card{
         padding: 2px;
         width: 220px;
     }
-    .btn{
-        
+    .introduce{
+        height: 200px;
+        width: 100%;
+        background-color: #33383c;
+        padding-top: 30px;
     }
+    .card-man{
+        padding-bottom: 35px;
+        background-color: #33383c;
+    }
+    /* .card-man-all{
+        justify-content: space-around;
+    } */
 </style>
 {% endblock %}
 {% block content %}
@@ -52,7 +65,7 @@
     </button>
 </div>
 <!--以下是card商品欄位-->
-<div class="container_card" style="background-color:#a0a0a0">
+<div class="container_card">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-5 mx-auto">
         {% for product in products%}
         <div class="col">
@@ -75,16 +88,16 @@
     </div>
 </div>
 <!--以下是圖隊介紹-->
-<div class="container py-4 py-xl-5">
-    <div class="row mb-5">
-        <div class="col-md-8 col-xl-6 text-center mx-auto">
+<div class="container-fluid" style="background-color:#33383c;">
+    <div class="introduce row mb-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto" style="color: #dbd4d4;">
             <h2>團隊介紹</h2>
             <p class="w-lg-50">我們是於勞動力發展署桃竹苗分署一起參與物聯網班隊的夥伴，班隊歷時7個多月，領域除了包含Html、CSS、JavaScript、Bootstrap等常見網頁前端領域外，亦包含android前端開發的JAVA，後端的Python Django、資料庫mariadb，及linux系統、單晶片等硬體，此專案就是我們部份能力的展現。</p>
         </div>
     </div>
     <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-lg-3 mx-auto">
         <div class="col">
-            <div class="card border-0 shadow-none mx-auto">
+            <div class="card-man border-0 shadow-none mx-auto">
                 <div class="card-body d-flex align-items-center p-0"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="130" height="130" src="{% static 'images/team/ken.jpg'%}">
                     <div>
                         <h5 class="fw-bold text-primary mb-0">Ken Hsu</h5>
@@ -110,7 +123,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card border-0 shadow-none mx-auto">
+            <div class="card-man border-0 shadow-none mx-auto">
                 <div class="card-body d-flex align-items-center p-0"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="130" height="130" src="{% static 'images/team/guguai.jpg'%}">
                     <div>
                         <h5 class="fw-bold text-primary mb-0"><strong>GuGuai</strong></h5>
@@ -132,7 +145,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card border-0 shadow-none mx-auto">
+            <div class="card-man border-0 shadow-none mx-auto">
                 <div class="card-body d-flex align-items-center p-0"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="130" height="130" src="{% static 'images/team/dennis.jpg'%}">
                     <div>
                         <h5 class="fw-bold text-primary mb-0"><strong>Dennis Tsai</strong></h5>

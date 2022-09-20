@@ -2,9 +2,24 @@
 {% load static %}
 {% block title %}
 <title>商品目錄</title>
+<style>
+    .container_card{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 50px;
+        background-image:url("/static/images/detail/bg_image.png");
+        background-repeat: repeat;
+        padding-top: 100px;
+    }
+    .card{
+        padding: 2px;
+        width: 220px;
+    }
+</style>
 {% endblock %}
 {% block content %}
-<div class="container_card" style="background-color:#a0a0a0">
+<div class="container_card">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-5 mx-auto">
         {% for product in products%}
         <div class="col">
