@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
+# AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend'] #加入此行不管使用者有沒有認證都會進入程式
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 

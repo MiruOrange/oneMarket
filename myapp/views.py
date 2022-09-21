@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from myapp.models import ProductModel, OrderModel, DetailModel, User
 from django.contrib import auth
 from datetime import datetime
+from django.contrib.auth import authenticate
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
@@ -26,25 +27,22 @@ def menu(request):
     return render(request, 'menu.html', locals())
 
 def userlogin(request):
+    message=""
     if request.method == "POST":
         username = request.POST['username']
         userPassword = request.POST['userPassword']
         print(username+" "+userPassword)
-        user = auth.authenticate(username=username, userPassword=userPassword)
+        user = authenticate(username=username, password=userPassword) #password(資料庫裡面名稱ID)=userPassword(取得HTML前端使用者輸入的資料)
         if user is not None:
-            if user.is_active:
-                auth.login(request, user)
-                message = "登入成功!"
-                # return redirect('/index/')
-            else:
-                message = "帳號尚未啟用!"
+            auth.login(request, user)
+            # message = "登入成功!"
+            return redirect('/index/')
         else:
             message = "登入失敗!"
-            print(message)
+            return render(request, 'userlogin.html', locals())
+    else:
     # return HttpResponse("測試")
         useradd_success_status=False #成功登入狀態=False 
-        return render(request, 'index.html', locals())
-    else:
         return render(request, 'userlogin.html', locals())
 
 def useradd(request):
