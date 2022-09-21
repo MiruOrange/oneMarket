@@ -20,9 +20,9 @@ from myapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index), 
-    path('index/', views.index),
-    path('userlogin/',views.userlogin),
-    path('useradd/',views.useradd),
+    path('index/', views.index),  #首頁
+    path('userlogin/',views.userlogin), #登入會員
+    path('useradd/',views.useradd), #註冊會員
     path('detail/<int:id>/', views.detail),
     path('cart/', views.cart),
     path('addtocart/<str:type>/<int:id>/', views.addtocart),

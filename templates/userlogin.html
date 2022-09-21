@@ -28,9 +28,6 @@
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
         }
-        section{
-            background-image: url("/static/images/products/mangekyosharingan1.png");
-        }
     </style>
 {% block content %}
 {% if useradd_success_status %}
@@ -46,7 +43,7 @@
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
                                 <h2 class="text-uppercase text-center mb-5">會員登入</h2>
-                                <form action="/useradd2/" method="post">
+                                <form action="/userlogin/" method="post">
                                     {% csrf_token %}
                                     <div class="form-outline mb-4">
                                         <input type="text" id="username" name="username"
