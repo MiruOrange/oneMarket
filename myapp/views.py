@@ -39,9 +39,11 @@ def index(request):
     if "counters" in request.COOKIES:
         counts = int(request.COOKIES['counters'])
         counts+=1
-    show_count=count #因經過response會導致global變數無法接收到數值，所以要放在response前面，global變數才會帶到資料
-    show_counts=counts
-    response= render(request, 'index.html', locals())
+    #show_count=count #因經過response會導致global變數無法接收到數值，所以要放在response前面，global變數才會帶到資料
+    #show_counts=counts
+    variableDict=locals().copy() #創一個空字典變數承接=locals()!!因會把此"函式區域變數"變成字典方式丟去index.html
+    variableDict.update(globals()) #再把這個新變數裡面內容除了區域變數也把全域變數抓近來，再一起丟入index.html
+    response= render(request, 'index.html', variableDict)
     expires=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
     expires=datetime.replace(expires,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
     response.set_cookie(key='counter',value=counts,expires=expires) #設定cookies及到期時間
@@ -174,6 +176,7 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
 def cart (request):     #負責顯示購物車的內容
     global cartlist
     global shipping
+    products = ProductModel.objects.all()
     cartlist1 = cartlist    #把cartlist轉成區域變數，要傳到cart.html
     localshipping = shipping
     total = 0
@@ -181,5 +184,8 @@ def cart (request):     #負責顯示購物車的內容
         total = total +int(unit[3])  #第3個位置，固定存放目前累計的商品金額
     grandtotal = total + localshipping   #總價，要加上運費，最前面定義為100元。
     return render(request, 'cart.html', locals())
+
+def cartorder(request):
+    return render(request, 'cartorder.html', locals())
             
 
