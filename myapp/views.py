@@ -121,6 +121,7 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
 def cart (request):     #負責顯示購物車的內容
     global cartlist
     global shipping
+    products = ProductModel.objects.all()
     cartlist1 = cartlist    #把cartlist轉成區域變數，要傳到cart.html
     localshipping = shipping
     total = 0
@@ -128,6 +129,4 @@ def cart (request):     #負責顯示購物車的內容
         total = total +int(unit[3])  #第3個位置，固定存放目前累計的商品金額
     grandtotal = total + localshipping   #總價，要加上運費，最前面定義為100元。
     return render(request, 'cart.html', locals())
-            
-
     
