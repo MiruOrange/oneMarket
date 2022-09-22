@@ -128,6 +128,9 @@ def cart (request):     #負責顯示購物車的內容
         total = total +int(unit[3])  #第3個位置，固定存放目前累計的商品金額
     grandtotal = total + localshipping   #總價，要加上運費，最前面定義為100元。
     return render(request, 'cart.html', locals())
+
+def cartorder(request):
+    return render(request, 'cartorder.html', locals())
             
 
     
