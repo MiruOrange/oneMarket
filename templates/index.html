@@ -16,10 +16,10 @@
     .btn{
         
     }
-    .bg{
+    {% comment %} .bg{
         background: url("{% static './images/products/eye1.png' %}");
         background-position: center center;
-    }
+    } {% endcomment %}
 </style>
 {% endblock %}
 {% block content %}
@@ -159,4 +159,10 @@
     </div>
 </div>
 <!--以上是圖隊介紹-->
+{% endblock %}
+{% block show_count %}
+<span>
+    今日瀏覽次數 : {{ show_count }}
+    總共瀏覽次數 : {{ show_counts }}
+</span>
 {% endblock %}

@@ -10,6 +10,11 @@
       .container-fluid{
         padding-left: 20px;
       }
+      span{
+        color: #aaaaaa;
+        padding-right: 20px;
+        font-size: 16px;
+      }
     </style>
   </head>
   <body>
@@ -34,6 +39,7 @@
               <a class="nav-link">查看訂單</a>
             </li>
           </ul>
+    
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="搜尋" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
@@ -49,6 +55,8 @@
     {% block content %}{% endblock %}
     <footer class="text-center bg-dark">
       <div class="container text-white py-4 py-lg-5">
+        {% block show_count %}{% endblock %}
+        
           <ul class="list-inline">
               <li class="list-inline-item me-4"><a class="link-light" href="#">專案GitHub連結</a></li>
               <li class="list-inline-item me-4"><a class="link-light" href="#">作品集</a></li>

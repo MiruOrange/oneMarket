@@ -1,18 +1,22 @@
+from urllib import response
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from myapp.models import ProductModel, OrderModel, DetailModel, User
 from django.contrib import auth
 from datetime import datetime
 from django.contrib.auth import authenticate
+from datetime import datetime, timedelta #cookie方式紀錄被瀏覽次數
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
 shipping =100
+count=0
+counts=0
 #如((苦無, 2000, 1, 2000), (血輪眼, 10000, 1, 10000), (軍糧丸, 2000, 1, 2000))
 #    名稱，單價，數量，小計
-
 def index(request):
-    
+    global count
+    global counts
     products = ProductModel.objects.all()
     productlist = []
     for i in range(1, 9):
@@ -20,13 +24,40 @@ def index(request):
         productlist.append(product)
     if request.user.is_authenticated: #設定登入後的驗證
         name=request.user.username
-    return render(request, 'index.html', locals())
+    #----增加用cookies方式記錄瀏覽次數----
+    if "counter" in request.COOKIES:
+        count = int(request.COOKIES['counter'])
+        count+=1
+        # print(type(count))
+        
+    else:
+        count=1
+    response= render(request, 'index.html', locals())
+    tomorrow=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
+    tomorrow=datetime.replace(tomorrow,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
+    response.set_cookie(key='counter',value=count,expires=tomorrow) #設定cookies及到期時間
+    if "counters" in request.COOKIES:
+        counts = int(request.COOKIES['counters'])
+        counts+=1
+    show_count=count #因經過response會導致global變數無法接收到數值，所以要放在response前面，global變數才會帶到資料
+    show_counts=counts
+    response= render(request, 'index.html', locals())
+    expires=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
+    expires=datetime.replace(expires,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
+    response.set_cookie(key='counter',value=counts,expires=expires) #設定cookies及到期時間
+    response.set_cookie(key='counters',value=counts,expires=315360000) #設定cookies及到期時間
+    
+    return response
 
 def menu(request):
+    global count
+    global counts
     products = ProductModel.objects.all()
     return render(request, 'menu.html', locals())
 
 def userlogin(request):
+    global count
+    global counts
     message=""
     if request.method == "POST":
         username = request.POST['username']
@@ -36,6 +67,7 @@ def userlogin(request):
         if user is not None:
             auth.login(request, user)
             # message = "登入成功!"
+            # print(conut)
             return redirect('/index/')
         else:
             message = "登入失敗!"
@@ -46,6 +78,8 @@ def userlogin(request):
         return render(request, 'userlogin.html', locals())
 
 def useradd(request):
+    global count
+    global counts
     if request.method == "POST":
         username = request.POST['username']
         userPassword = request.POST['userPassword']
@@ -149,4 +183,3 @@ def cart (request):     #負責顯示購物車的內容
     return render(request, 'cart.html', locals())
             
 
-    
