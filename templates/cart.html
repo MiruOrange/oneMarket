@@ -9,58 +9,113 @@
     .cart-button{
         text-align:center;
         margin-bottom: 30px;
+        /* padding-left: 150px;
+        padding-right: 150px; */
     }
     .carAll{
-        padding-top: 62px;
+        padding-top: 60px;
+        /* background-image: url("/static/images/detail/bg_image.png") */
+        /* style="background-image: url(/static/images/detail/bg_image.png)" */
     }
-    
+    .btn_ctl{
+        padding: 10px;
+    }
+    .text_bg{
+        background: linear-gradient(#00000000, #2e2e2e)
+    }
+    .table{
+        background-color: #1e1e1e;
+    }
 </style>
 {% endblock %}
 {% block content %}
 <div class="carAll">
-    <form action="/addtocart/update/" method="POST">
-        {% csrf_token %}
-        <table class="table table-striped table-hover">
-            <tr>
-                <th>取消</th>
-                <th>名稱</th>
-                <th>單價</th>
-                <th>數量</th>
-                <th>金額</th>
-            </tr>
-            {% for unit in cartlist1 %}
-            <tr>
-                <td><a href="/addtocart/remove/{{forloop.counter0}}">刪除</a></td>
-                <td>{{unit.0}}</td>
-                <td>{{unit.1}}</td>
-                <td>
-                    <input type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}"> 
-                    <!--使用forloop.counter0，因為可能會有多項商品要進行修改-->
-                </td>
-                <td>{{unit.3}}</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="4">金額小計</td>
-                <td>{{total}}</td>
-            </tr>
-            <tr>
-                <td colspan="4">運費</td>
-                <td>{{localshipping}}</td>
-            </tr>
-            <tr>
-                <td colspan="4">合計</td>
-                <td>{{grandtotal}}</td>
-            </tr>
-            <tr>
-            </tr>
-        </table>
-        <div class="cart-button">
-            <input class="btn btn-dark" type="button" value="繼續購物" onclick="window.location='/menu/'">
-            <input class="btn btn-dark" type="submit" value="更新購物車">
-            <input class="btn btn-dark" type="button" value="清空購物車" onclick="window.location='/addtocart/empty/'">
-            <input class="btn btn-dark" type="button" value="我要結帳">
+    <div class="row">
+
+        <!-- 左側空白區 -->
+        <div class="col-12 col-md-2" style="background-image: url(/static/images/detail/bg_image.png)"></div>
+
+        <!-- 購物車主頁 -->
+        <form class="col-12 col-md-6" action="/addtocart/update/" method="POST" style="background-color: #0d0d0d;">
+            {% csrf_token %}
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th style="color: #aeaeae;">取消</th>
+                    <th style="color: #aeaeae;">名稱</th>
+                    <th style="color: #aeaeae;">單價</th>
+                    <th style="color: #aeaeae;">數量</th>
+                    <th style="color: #aeaeae;">金額</th>
+                </tr>
+                {% for unit in cartlist1 %}
+                <tr>
+                    <td><a href="/addtocart/remove/{{forloop.counter0}}">刪除</a></td>
+                    <td>{{unit.0}}</td>
+                    <td>{{unit.1}}</td>
+                    <td>
+                        <input type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}"> 
+                        <!--使用forloop.counter0，因為可能會有多項商品要進行修改-->
+                    </td>
+                    <td style="color: #828282;">{{unit.3}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td style="color: #828282;" colspan="4">金額小計</td>
+                    <td style="color: #828282;">{{total}}</td>
+                </tr>
+                <tr>
+                    <td style="color: #828282;" colspan="4">運費</td>
+                    <td style="color: #828282;">{{localshipping}}</td>
+                </tr>
+                <tr>
+                    <td style="color: #828282;" colspan="4">合計</td>
+                    <td style="color: #828282;">{{grandtotal}}</td>
+                </tr>
+                <tr>
+                </tr>
+            </table>
+            <div class="cart-button d-flex justify-content-around">
+                <div class="btn_ctl">
+                    <input class="btn btn-secondary" type="button" value="繼續購物" onclick="window.location='/menu/'">
+                </div>
+                <div class="btn_ctl">
+                    <input class="btn btn-secondary" type="submit" value="更新購物車">
+                </div>
+                <div class="btn_ctl">
+                    <input class="btn btn-secondary" type="button" value="清空購物車" onclick="window.location='/addtocart/empty/'">
+                </div>
+                <div class="btn_ctl">
+                    <input class="btn btn-secondary" type="button" value="我要結帳">
+                </div>
+            </div>
+        </form>
+
+        <!-- 推薦商品資訊 -->
+        <div class="col-12 col-md-2" style="background-image: url(/static/images/detail/bg_image.png)">
+            <div class="text_bg text-white" style="text-align: center; padding-top: 10px;"><h4>推薦商品</h4></div>
+            <div class="container">
+                <!-- {% for product in products %} -->
+                <div class="card h-100" style="width: 220px; padding: 1px;">
+                    <img src="/static/images/products/{{product.pimage}}" class="card-img-top">
+                    <div class="card-body" style="background-color: #ded6d6;">
+                        <div class="card-title" style="font-weight: bold;">{{product.pname}}</div>
+                        <p class="card-text h-50">{{product.pdescription}}</p>
+                        <div class="product-name"> 
+                            <h5>特價 ${{product.pprice}}</h5>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button class="btn btn-primary me-md-2" type="button" onclick="window.location='/detail/{{product.id}}/'">商品資訊</button> 
+                            <!-- card-link -->
+                        </div>
+                    </div>
+                </div>
+                <div class="null_buttom" style="height: 10px;"></div>
+                <!-- {% endfor %} -->
+            </div>
         </div>
-    </form>
+
+        <!-- 右側空白區 -->
+        <div class="col-12 col-md-2" style="background-image: url(/static/images/detail/bg_image.png)"></div>
+
+    </div>
 </div>
 {% endblock %}
