@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from myapp.models import ProductModel, OrderModel, DetailModel
+import random
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
@@ -68,7 +69,7 @@ def useradd(request):
     else:
         user=None #註冊帳號檢查
         password_check=True #密碼檢查
-        return render(request, "useradd2.html",locals()) 
+        return render(request, "useradd.html",locals()) 
     # return HttpResponse("測試")
 
 def detail(request,id=None):
@@ -129,4 +130,10 @@ def cart (request):     #負責顯示購物車的內容
         total = total +int(unit[3])  #第3個位置，固定存放目前累計的商品金額
     grandtotal = total + localshipping   #總價，要加上運費，最前面定義為100元。
     return render(request, 'cart.html', locals())
-    
+
+def cartorder(request):
+    return render(request, 'cartorder.html', locals())
+            
+
+def cartorder(request):
+    return render(request, 'cartorder.html', locals())
