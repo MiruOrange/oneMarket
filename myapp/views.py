@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from myapp.models import ProductModel, OrderModel, DetailModel
+import random
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
@@ -68,7 +69,7 @@ def useradd(request):
     else:
         user=None #註冊帳號檢查
         password_check=True #密碼檢查
-        return render(request, "useradd2.html",locals()) 
+        return render(request, "useradd.html",locals()) 
     # return HttpResponse("測試")
 
 def detail(request,id=None):
