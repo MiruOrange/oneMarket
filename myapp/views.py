@@ -6,6 +6,7 @@ from django.contrib import auth
 from datetime import datetime
 from django.contrib.auth import authenticate
 from datetime import datetime, timedelta #cookie方式紀錄被瀏覽次數
+from django.contrib.sessions.models import Session
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
@@ -48,33 +49,35 @@ def index(request):
     # expires=datetime.replace(expires,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
     # response.set_cookie(key='counter',value=counts,expires=expires) #設定cookies及到期時間
     # response.set_cookie(key='counters',value=counts,expires=315360000) #設定cookies及到期時間
-    #  return response
+    # return response
 
     #---改用session方式紀錄瀏覽次數--
-    if "counter" in request.session:
+    if not "counter" in request.session:
         count =int(request.session['counter'])
-        count+1
+        count+=1
         print(count)
         
     else:
-        count=1
-    response= render(request, 'index.html', locals())
+         count=1
+   
     tomorrow=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
     tomorrow=datetime.replace(tomorrow,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
+    # request.session['']
     response.set_cookie(key='counter',value=count,expires=tomorrow) #設定cookies及到期時間
-    if "counters" in request.request:
-        counts = int(request.request['counters'])
-        counts+=1
-    #show_count=count #因經過response會導致global變數無法接收到數值，所以要放在response前面，global變數才會帶到資料
-    #show_counts=counts
+    # if "counters" in request.COOKIES:
+    #     counts = int(request.COOKIES['counters'])
+    #     counts+=1
+    # #show_count=count #因經過response會導致global變數無法接收到數值，所以要放在response前面，global變數才會帶到資料
+    # #show_counts=counts
     variableDict=locals().copy() #創一個空字典變數承接=locals()!!因會把此"函式區域變數"變成字典方式丟去index.html
     variableDict.update(globals()) #再把這個新變數裡面內容除了區域變數也把全域變數抓近來，再一起丟入index.html
     response= render(request, 'index.html', variableDict)
-    expires=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
-    expires=datetime.replace(expires,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
-    response.set_cookie(key='counter',value=counts,expires=expires) #設定cookies及到期時間
-    response.set_cookie(key='counters',value=counts,expires=315360000) #設定cookies及到期時間
+    # expires=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
+    # expires=datetime.replace(expires,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
+    # response.set_cookie(key='counter',value=counts,expires=expires) #設定cookies及到期時間
+    # response.set_cookie(key='counters',value=counts,expires=315360000) #設定cookies及到期時間
     return response
+
    
 
 def menu(request):
@@ -106,8 +109,6 @@ def userlogin(request):
         return render(request, 'userlogin.html', locals())
 
 def useradd(request):
-    global count
-    global counts
     if request.method == "POST":
         username = request.POST['username']
         userPassword = request.POST['userPassword']
