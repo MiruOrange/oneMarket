@@ -34,7 +34,7 @@
         <div class="col-2" style="background-image: url(/static/images/page/bg_image.png)"></div>
 
         <!-- 購物車主頁 -->
-        <form class="col-6" action="/addtocart/update/" method="POST" style="background-color: #0d0d0d;">
+        <form class="col-12 col-lg-6" action="/addtocart/update/" method="POST" style="background-color: #0d0d0d;">
             {% csrf_token %}
             <table class="table table-dark table-striped table-hover">
                 <tr>
@@ -46,32 +46,27 @@
                 </tr>
                 {% for unit in cartlist1 %}
                 <tr>
-                    <td><a href="/addtocart/remove/{{forloop.counter0}}" style="color: #ee0c0c;">刪除</a></td>
+                    <td><a href="/addtocart/remove/{{forloop.counter0}}">刪除</a></td>
                     <td class="text-light">{{unit.0}}</td>
                     <td class="text-light">{{unit.1}}</td>
                     <td>
-                        <!-- <input type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}">  -->
+                        <input style="width: 50px;" type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}"> 
                         <!--使用forloop.counter0，因為可能會有多項商品要進行修改-->
-                        <!-- <div class="col" > -->
-                        <input type='button' value='-' class='qtyminus' style="width: 27px;" field='quantity' />
-                        <input type='text' name='quantity{{forloop.counter0}}' value='{{unit.2}}' class='qty text-center' style="width: 40px;" />
-                        <input type='button' value='+' class='qtyplus' field='quantity' />
-                        <!-- </div> -->
                     </td>
-                    <td style="color: #eadfdf;">{{unit.3}}</td>
+                    <td style="color: #828282;">{{unit.3}}</td>
                 </tr>
                 {% endfor %}
                 <tr>
                     <td style="color: #828282;" colspan="4">金額小計</td>
-                    <td style="color: #eadfdf;">{{total}}</td>
+                    <td style="color: #828282;">{{total}}</td>
                 </tr>
                 <tr>
                     <td style="color: #828282;" colspan="4">運費</td>
-                    <td style="color: #eadfdf;">{{localshipping}}</td>
+                    <td style="color: #828282;">{{localshipping}}</td>
                 </tr>
                 <tr>
                     <td style="color: #828282;" colspan="4">合計</td>
-                    <td style="color: #efe00a;">{{grandtotal}}</td>
+                    <td style="color: #828282;">{{grandtotal}}</td>
                 </tr>
                 <tr>
                 </tr>
@@ -92,13 +87,13 @@
             </div>
         </form>
 
+
         <!-- 推薦商品資訊 -->
-        <div class="col-2" style="background-image: url(/static/images/page/bg_image.png)">
-            <div class="row text_bg text-white" style="text-align: center; padding-top: 10px;"><h4>推薦商品</h4></div>
+        <div class="col-12 col-lg-2" style="background-image: url(/static/images/page/bg_image.png)">
+            <div class="text_bg text-white" style="text-align: center; padding-top: 10px;"><h4>推薦商品</h4></div>
             <div class="container">
-                {% for product in products %}
-                <div class="row">
-                    <div class="card h-100" style="width: 220px; padding: 1px;">
+                <!-- {% for product in products %} -->
+                <div class="card h-100" style="width: 220px; padding: 1px;">
                     <img src="/static/images/products/{{product.pimage}}" class="card-img-top">
                     <div class="card-body" style="background-color: #ded6d6;">
                         <div class="card-title" style="font-weight: bold;">{{product.pname}}</div>
@@ -113,9 +108,7 @@
                     </div>
                 </div>
                 <div class="null_buttom" style="height: 10px;"></div>
-                </div>
-                
-                {% endfor %}
+                <!-- {% endfor %} -->
             </div>
         </div>
 
