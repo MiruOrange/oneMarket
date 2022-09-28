@@ -49,8 +49,8 @@
                 {% for unit in cartlist1 %}
                 <tr>
                     <td><a href="/addtocart/remove/{{forloop.counter0}}">刪除</a></td>
-                    <td>{{unit.0}}</td>
-                    <td>{{unit.1}}</td>
+                    <td class="text-light">{{unit.0}}</td>
+                    <td class="text-light">{{unit.1}}</td>
                     <td>
                         <input type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}"> 
                         <!--使用forloop.counter0，因為可能會有多項商品要進行修改-->
