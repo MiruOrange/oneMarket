@@ -9,13 +9,11 @@
     .cart-button{
         text-align:center;
         margin-bottom: 30px;
-        /* padding-left: 150px;
-        padding-right: 150px; */
     }
     .carAll{
         padding-top: 60px;
-        /* background-image: url("/static/images/detail/bg_image.png") */
-        /* style="background-image: url(/static/images/detail/bg_image.png)" */
+        overflow-x: hidden;
+
     }
     .btn_ctl{
         padding: 10px;
@@ -24,7 +22,7 @@
         background: linear-gradient(#00000000, #2e2e2e)
     }
     .table{
-        background-color: #1e1e1e;
+        background-color: #282828;
     }
 </style>
 {% endblock %}
@@ -33,12 +31,12 @@
     <div class="row">
 
         <!-- 左側空白區 -->
-        <div class="col-12 col-md-2" style="background-image: url(/static/images/page/bg_image.png)"></div>
+        <div class="col-2" style="background-image: url(/static/images/page/bg_image.png)"></div>
 
         <!-- 購物車主頁 -->
-        <form class="col-12 col-md-6" action="/addtocart/update/" method="POST" style="background-color: #0d0d0d;">
+        <form class="col-12 col-lg-6" action="/addtocart/update/" method="POST" style="background-color: #0d0d0d;">
             {% csrf_token %}
-            <table class="table table-striped table-hover">
+            <table class="table table-dark table-striped table-hover">
                 <tr>
                     <th style="color: #aeaeae;">取消</th>
                     <th style="color: #aeaeae;">名稱</th>
@@ -52,7 +50,7 @@
                     <td class="text-light">{{unit.0}}</td>
                     <td class="text-light">{{unit.1}}</td>
                     <td>
-                        <input type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}"> 
+                        <input style="width: 50px;" type="text" name="quantity{{forloop.counter0}}" value="{{unit.2}}"> 
                         <!--使用forloop.counter0，因為可能會有多項商品要進行修改-->
                     </td>
                     <td style="color: #828282;">{{unit.3}}</td>
@@ -89,8 +87,9 @@
             </div>
         </form>
 
+
         <!-- 推薦商品資訊 -->
-        <div class="col-12 col-md-2" style="background-image: url(/static/images/page/bg_image.png)">
+        <div class="col-12 col-lg-2" style="background-image: url(/static/images/page/bg_image.png)">
             <div class="text_bg text-white" style="text-align: center; padding-top: 10px;"><h4>推薦商品</h4></div>
             <div class="container">
                 <!-- {% for product in products %} -->
@@ -114,7 +113,7 @@
         </div>
 
         <!-- 右側空白區 -->
-        <div class="col-12 col-md-2" style="background-image: url(/static/images/page/bg_image.png)"></div>
+        <div class="col-2" style="background-image: url(/static/images/page/bg_image.png)"></div>
 
     </div>
 </div>

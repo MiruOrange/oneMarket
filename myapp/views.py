@@ -123,7 +123,7 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
 def cart (request):     #負責顯示購物車的內容
     global cartlist
     global shipping
-    products = ProductModel.objects.all()
+    products = ProductModel.objects.all().order_by('?')[:2] #隨機排序並只取出2筆商品資訊
     cartlist1 = cartlist    #把cartlist轉成區域變數，要傳到cart.html
     localshipping = shipping
     total = 0
