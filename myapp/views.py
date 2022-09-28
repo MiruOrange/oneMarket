@@ -80,12 +80,12 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
     global cartlist      #取得session，裡面放著客戶選購的物品
     if type == 'add':
         product = ProductModel.objects.get(id=id)
-        quantity = request.POST['quantity']
+        quantity = int(request.POST['quantity'])
         noCartSession = True          #True，表示購物車session內沒有商品
         for unit in cartlist:                               #檢查購物車內是否已經有該品項商品，如果有，把數量加1
             if product.pname == unit[0]:                    #如果cartlist的session中有該選購商品的話
                 unit[2] = str(int(unit[2])+int(quantity))               #商品數量加1
-                unit[3] = str(int(unit[3])+product.pprice)  #購物車累計的商品金額，再加一筆商品單價，累計金額增加了
+                unit[3] = str(int(unit[3])+product.pprice*quantity)  #購物車累計的商品金額，再加一筆商品單價，累計金額增加了
                 noCartSession = False                                #表示購物車session內已經有商品了
                 break
         if noCartSession:                                    #如果購物車內沒有商品
@@ -93,7 +93,7 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
             templist.append(product.pname)          #0的位置放入選購商品名稱
             templist.append(str(product.pprice))    #1的位置放入商品單價
             templist.append(str(quantity))                    #2的位置放入暫訂選購商品數量為1
-            templist.append(str(product.pprice))    #3的位置放入暫訂選購商品總價
+            templist.append(str(product.pprice*quantity))    #3的位置放入暫訂選購商品總價
             cartlist.append(templist)   #將暫時串列，放入購物車的串列。
         request.session['cartlist'] = cartlist      #將購物車的內容放入session
         return redirect('/cart/')
