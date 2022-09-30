@@ -4,6 +4,77 @@
 <title>查看訂單內容</title>
 {% endblock %}
 {% block content %}
-
-
+<form method="POST" action="/cartok/">
+    {% csrf_token %}
+    <div class="container-fluid py-5 my-5">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <p class="text-center fs-3"><span class="badge text-bg-danger">購物清單</span></p>
+                <table class="table table-dark table-striped">
+                    <tr>
+                        <th>商品名稱</th>
+                        <th>單價</th>
+                        <th>數量</th>
+                        <th>金額</th>
+                    </tr>
+                    {% for product in cartlist1 %}
+                    <tr>
+                        <td>{{product.0}}</td>
+                        <td>{{product.1}}</td>
+                        <td>{{product.2}}</td>
+                        <td>{{product.3}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3">運費</td>
+                        <td>{{shipping1}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">總計</td>
+                        <td>{{grandtotal}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-12 col-md-6">
+                <p class="text-center text-danger fs-3"><span class="badge text-bg-danger">訂購資訊</span></p>
+                
+                <div class="mb-3">
+                    <label for="customername" class="form-label">收件人</label>
+                    <input type="text" name="customername" class="form-control" id="customername" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="customerphone" class="form-label">聯絡電話</label>
+                    <input type="text" name="customerphone" class="form-control" id="customerphone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="customeraddress" class="form-label">寄送住址</label>
+                    <input type="text" name="customeraddress" class="form-control" id="customeraddress" required>
+                </div>
+                <div class="mb-3">
+                    <label for="customeremail" class="form-label">電子郵件</label>
+                    <input type="email" name="customeremail" class="form-control" id="customeremail" required>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="paytype" id="inlineRadio1" value="option1" checked>
+                    <label class="form-check-label" for="inlineRadio1">ATM轉帳</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="paytype" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">郵政劃撥</label>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <div class="text-center mx-2">
+                        <button type="button" class="btn btn-dark" onclick="window.location='/menu/'">繼續購物</button>
+                    </div>
+                    <div class="text-center mx-2">
+                        <button type="button" class="btn btn-dark" onclick="window.location='/cart/'">修改購物車內容</button>
+                    </div>
+                    <div class="text-center mx-2">
+                        <button type="submit" class="btn btn-dark">送出</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</form>
 {% endblock %}

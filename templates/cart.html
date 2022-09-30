@@ -82,7 +82,7 @@
                     <input class="btn btn-secondary" type="button" value="清空購物車" onclick="window.location='/addtocart/empty/'">
                 </div>
                 <div class="btn_ctl">
-                    <input class="btn btn-secondary" type="button" value="我要結帳">
+                    <input class="btn btn-secondary" type="button" value="我要結帳" onclick="window.location='/cartorder/'">
                 </div>
             </div>
         </form>
@@ -92,7 +92,7 @@
         <div class="col-12 col-lg-2" style="background-image: url(/static/images/page/bg_image.png)">
             <div class="text_bg text-white" style="text-align: center; padding-top: 10px;"><h4>推薦商品</h4></div>
             <div class="container">
-                <!-- {% for product in products %} -->
+                {% for product in products %}
                 <div class="card h-100" style="width: 220px; padding: 1px;">
                     <img src="/static/images/products/{{product.pimage}}" class="card-img-top">
                     <div class="card-body" style="background-color: #ded6d6;">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="null_buttom" style="height: 10px;"></div>
-                <!-- {% endfor %} -->
+                {% endfor %}
             </div>
         </div>
 
