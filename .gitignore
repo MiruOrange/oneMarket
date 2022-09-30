@@ -3,3 +3,5 @@
 /myapp/migrations/*.py
 
 /myapp/migrations/__pycache__/*.pyc
+
+/onePageMarket/__pycache__/*.pyc
