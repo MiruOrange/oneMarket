@@ -28,4 +28,6 @@ class User(AbstractUser):#使用django內鍵新增帳號，來增加需要的欄
     cBirthday = models.DateField(null=True)
     cPhone = models.CharField(max_length=10)
 
-
+class Visit(models.Model):
+    times = models.IntegerField()
+    

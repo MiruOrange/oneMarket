@@ -1,7 +1,7 @@
 from urllib import response
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from myapp.models import ProductModel, OrderModel, DetailModel, User
+from myapp.models import ProductModel, OrderModel, DetailModel, User, Visit
 from django.contrib import auth
 from datetime import datetime
 from django.contrib.auth import authenticate
@@ -11,14 +11,12 @@ from django.contrib.sessions.models import Session
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
 shipping =100
-count=0
-counts=0
+context=0
 #如((苦無, 2000, 1, 2000), (血輪眼, 10000, 1, 10000), (軍糧丸, 2000, 1, 2000))
 #    名稱，單價，數量，小計
 def index(request):
-    global count
-    global counts
-    products = ProductModel.objects.all()
+    global context
+    products = ProductModel.objects.all() 
     productlist = []
     for i in range(1, 9):
         product = ProductModel.objects.get(id = i)
@@ -51,44 +49,28 @@ def index(request):
     # response.set_cookie(key='counters',value=counts,expires=315360000) #設定cookies及到期時間
     # return response
 
-    #---改用session方式紀錄瀏覽次數--
-    if not "counter" in request.session:
-        count =int(request.session['counter'])
-        count+=1
-        print(count)
-        
+    #---改用session方式紀錄瀏覽次數-- session取值方式(request)、co
+
+    if "counter" not in request.session: #如果session沒有紀錄
+        request.session["counter"]=True #session儲存name:quiz value:True
+        visit_model = Visit.objects.get(id=1) #拜訪人數
+        visit_model.times += 1 #拜訪人數加一
+        visit_model.save()
     else:
-         count=1
-   
-    tomorrow=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
-    tomorrow=datetime.replace(tomorrow,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
-    # request.session['']
-    response.set_cookie(key='counter',value=count,expires=tomorrow) #設定cookies及到期時間
-    # if "counters" in request.COOKIES:
-    #     counts = int(request.COOKIES['counters'])
-    #     counts+=1
-    # #show_count=count #因經過response會導致global變數無法接收到數值，所以要放在response前面，global變數才會帶到資料
-    # #show_counts=counts
-    variableDict=locals().copy() #創一個空字典變數承接=locals()!!因會把此"函式區域變數"變成字典方式丟去index.html
-    variableDict.update(globals()) #再把這個新變數裡面內容除了區域變數也把全域變數抓近來，再一起丟入index.html
-    response= render(request, 'index.html', variableDict)
-    # expires=datetime.now()+timedelta(days=1) #取出今天的時間後先將日期+1
-    # expires=datetime.replace(expires,hour=8,minute=0,second=0) #再將時間重置成台灣(UTF+8)凌晨00:00:00
-    # response.set_cookie(key='counter',value=counts,expires=expires) #設定cookies及到期時間
-    # response.set_cookie(key='counters',value=counts,expires=315360000) #設定cookies及到期時間
-    return response
+        visit_model = Visit.objects.get(id=1)
+        visit_model.times +=0
+        visit_model.save()
+    context = {'visit_template' : visit_model.times}
+    print(context)
+    return render(request, 'index.html', locals())
 
    
 
 def menu(request):
-    global count
-    global counts
     products = ProductModel.objects.all()
     return render(request, 'menu.html', locals())
 
 def userlogin(request):
-    global count
-    global counts
     message=""
     if request.method == "POST":
         username = request.POST['username']
@@ -173,9 +155,9 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
             templist = []    #暫時串列
             templist.append(product.pname)          #0的位置放入選購商品名稱
             templist.append(str(product.pprice))    #1的位置放入商品單價
-            templist.append(str(quantity))                    #2的位置放入暫訂選購商品數量為1
+            templist.append(str(quantity))          #2的位置放入暫訂選購商品數量為1
             templist.append(str(product.pprice))    #3的位置放入暫訂選購商品總價
-            cartlist.append(templist)   #將暫時串列，放入購物車的串列。
+            cartlist.append(templist)               #將暫時串列，放入購物車的串列。
         request.session['cartlist'] = cartlist      #將購物車的內容放入session
         return redirect('/cart/')
     elif type == 'update':

@@ -179,7 +179,7 @@
 {% endblock %}
 {% block show_count %}
 <span>
-    今日瀏覽次數 : {{ count }}
-    總共瀏覽次數 : {{ counts }}
+    今日瀏覽次數 : {{  visit_model.times }}
+    {% comment %} 總共瀏覽次數 : {{ counts }} {% endcomment %}
 </span>
 {% endblock %}
