@@ -155,7 +155,8 @@ def cartorder(request):
 
 def cartok(request):
     if request.method == 'POST':
-        return HttpResponse('進入訂購確認頁面')
+        # return HttpResponse('傳送ok')
+        return render(request, 'cartok.html', locals())
     else:
         return HttpResponse('你的post有問題哦')
             
