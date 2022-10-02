@@ -10,8 +10,12 @@ from django.contrib.sessions.models import Session
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
-shipping =100
-context=0
+shipping =100  #運費，設定為100。
+message = ''
+customername = ''
+customerphone = ''
+customeraddress = ''
+customeremail = ''
 #如((苦無, 2000, 1, 2000), (血輪眼, 10000, 1, 10000), (軍糧丸, 2000, 1, 2000))
 #    名稱，單價，數量，小計
 def index(request):
@@ -143,21 +147,21 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
     global cartlist      #取得session，裡面放著客戶選購的物品
     if type == 'add':
         product = ProductModel.objects.get(id=id)
-        quantity = request.POST['quantity']
+        quantity = int(request.POST['quantity'])    #將接收的數字轉成int後，放入quantity準備做計算使用
         noCartSession = True          #True，表示購物車session內沒有商品
-        for unit in cartlist:                               #檢查購物車內是否已經有該品項商品，如果有，把數量加1
+        for unit in cartlist:                               #檢查購物車內是否已經有該品項商品，如果有，把數量加上選取數量
             if product.pname == unit[0]:                    #如果cartlist的session中有該選購商品的話
-                unit[2] = str(int(unit[2])+int(quantity))               #商品數量加1
-                unit[3] = str(int(unit[3])+product.pprice)  #購物車累計的商品金額，再加一筆商品單價，累計金額增加了
+                unit[2] = str(int(unit[2])+int(quantity))               #商品數量加上所選取數量
+                unit[3] = str(int(unit[3])+product.pprice*quantity)  #購物車累計的商品金額，再加一筆商品單價，累計金額增加了
                 noCartSession = False                                #表示購物車session內已經有商品了
                 break
         if noCartSession:                                    #如果購物車內沒有商品
             templist = []    #暫時串列
             templist.append(product.pname)          #0的位置放入選購商品名稱
             templist.append(str(product.pprice))    #1的位置放入商品單價
-            templist.append(str(quantity))          #2的位置放入暫訂選購商品數量為1
-            templist.append(str(product.pprice))    #3的位置放入暫訂選購商品總價
-            cartlist.append(templist)               #將暫時串列，放入購物車的串列。
+            templist.append(str(quantity))                    #2的位置放入顧客選購的數量
+            templist.append(str(product.pprice*quantity))     #3的位置放入暫訂選購商品總價
+            cartlist.append(templist)   #將暫時串列，放入購物車的串列。
         request.session['cartlist'] = cartlist      #將購物車的內容放入session
         return redirect('/cart/')
     elif type == 'update':
@@ -186,7 +190,7 @@ def addtocart(request,type=None, id=None):  #這個函式負責新增或修改�
 def cart (request):     #負責顯示購物車的內容
     global cartlist
     global shipping
-    products = ProductModel.objects.all()
+    products = ProductModel.objects.all().order_by('?')[:2] #隨機排序並只取出2筆商品資訊
     cartlist1 = cartlist    #把cartlist轉成區域變數，要傳到cart.html
     localshipping = shipping
     total = 0
@@ -196,6 +200,24 @@ def cart (request):     #負責顯示購物車的內容
     return render(request, 'cart.html', locals())
 
 def cartorder(request):
+    global cartlist, message, customername, customerphone, customeraddress, customeremail, shipping
+    cartlist1 = cartlist    #將購物車的session轉成區域變數，準備傳到模版
+    total = 0
+    for unit in cartlist:
+        total = total + int(unit[3])    #unit[3]放的是累計商品價格
+    grandtotal = total + shipping       #總價=累計商品價格+運費
+    shipping1 = shipping
+    #--以下將所有顧客資料和要給顧客的訊息都傳到cartorder.html去
+    message1 = message
+    customername1 = customername
+    customerphone1 = customerphone
+    customeraddress1 = customeraddress
+    customeremail1 = customeremail
     return render(request, 'cartorder.html', locals())
-            
 
+def cartok(request):
+    if request.method == 'POST':
+        return HttpResponse('進入訂購確認頁面')
+    else:
+        return HttpResponse('你的post有問題哦')
+            

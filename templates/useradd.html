@@ -33,6 +33,7 @@ crossorigin="anonymous"></script>
     background-position: center center;
 }
 </style>
+
 {% block content %}
 {% if user != None %}
 <!-- <h2>已有帳號，請重新輸入帳號</h2> -->
@@ -48,19 +49,20 @@ crossorigin="anonymous"></script>
 </script>
 {% endif %}
 
-<section class="vh-100 bg-image" style="background-color: cornflowerblue;">
+<section class="bg-image" style="background-image: url(/static/images/page/bg_image.png)">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-        <div class="container h-100">
+        <div class="container h-100" style="padding-top: 100px; padding-bottom: 50px; ">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                    <div class="card" style="border-radius: 15px;">
+                    <div class="card" style="border-radius: 15px; background-color: #252525; box-shadow:0px 0px 10px 0px rgb(237, 117, 109);">
                         <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">會員註冊</h2>
+                            <h2 class="text-uppercase text-center mb-5" style="color: #d6c2c2;">會員註冊</h2>
                             <form action="/useradd/" method="post">
                                 {% csrf_token %}
                                 <div class="form-outline mb-4">
                                     <input type="text" id="username" name="username"
                                         class="form-control form-control-lg" placeholder="請輸入使用者名稱 長度:6-12個字元"
+                                        style="background-color: #4f2e2e; color: #e9d9d9;"
                                         required />
                                     <!-- <label class="form-label" for="username">姓名</label> -->
                                 </div>
@@ -68,41 +70,51 @@ crossorigin="anonymous"></script>
                                 <div class="form-outline mb-4">
                                     <input type="password" id="userPassword" name="userPassword"
                                         class="form-control form-control-lg" for="userPassword"
+                                        style="background-color: #4f2e2e; color: #e9d9d9;"
                                         placeholder="請輸入密碼 長度:6-12個字元" required />
                                     <!-- <label class="form-label">密碼</label> -->
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <input type="password" id="userRePassword" name="userRePassword"
-                                        class="form-control form-control-lg" placeholder="請重複輸入密碼" required />
+                                        class="form-control form-control-lg" 
+                                        style="background-color: #4f2e2e; color: #e9d9d9;"
+                                        placeholder="請重複輸入密碼" required />
                                     <!-- <label class="form-label" for="userRePassword">確認密碼</label> -->
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <input type="text" id="userPhone" name="userPhone"
-                                        class="form-control form-control-lg" placeholder="請輸入您的手機號碼，11位有效數字"
+                                        class="form-control form-control-lg" 
+                                        style="background-color: #4f2e2e; color: #e9d9d9;"
+                                        placeholder="請輸入您的手機號碼，11位有效數字"
                                         required />
+                                        
                                     <!-- <label class="form-label" for="form3Example3cg">手機號碼</label> -->
                                 </div>
                                 <div class="form-outline mb-4">
                                     <input type="email" id="userEmail" name="userEmail"
                                         class="form-control form-control-lg"
-                                        placeholder="請輸入您的郵箱地址，如：[email protected]" required />
+                                        style="background-color: #4f2e2e; color: #e9d9d9;"
+                                        placeholder="請輸入您的郵箱地址，如：user@gmail.com" required />
                                     <!-- <label class="form-label" for="form3Example3cg">電子郵箱</label> -->
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <input type="date" id="userBirthday" name="userBirthday"
-                                        class="form-control form-control-lg" required />
+                                        class="form-control form-control-lg" 
+                                        style="background-color: #4f2e2e; color: #e9d9d9;"
+                                        required />
                                     <!-- <label class="form-label" for="userBirthday">生日</label> -->
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <input class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                                    <input class="btn btn-danger btn-block btn-lg gradient-custom-4 text-light"
+                                        style="font-weight:bold;"
                                         id="xiao-submit-button" type="submit" value="註冊">
                                 </div>
 
-                                <p class="text-center text-muted mt-5 mb-0">已經有帳號了?<a href="/userlogin/"
-                                        class="fw-bold text-body"><u>登入</u></a></p>
+                                <p class="text-center text-muted mt-5 mb-0">已經有帳號了?&ensp;<a href="/userlogin/"
+                                        class="fw-bold text-body"><u style="color: #b3abab;">登入</u></a></p>
                             </form>
 
                         </div>
