@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 
 # Create your models here.
@@ -15,6 +16,7 @@ class OrderModel(models.Model):
     customeremail = models.CharField(max_length=50)
     customeraddress = models.CharField(max_length=50)
     customerphone = models.CharField(max_length=50)
+    paytype = models.CharField(max_length=5, default='atm')
 
 class DetailModel(models.Model):
     dorder = models.ForeignKey('OrderModel', on_delete=models.CASCADE)

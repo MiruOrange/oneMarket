@@ -154,8 +154,29 @@ def cartorder(request):
     return render(request, 'cartorder.html', locals())
 
 def cartok(request):
+    global cartlist , message, customername, customerphone, customeraddress, customeremail, shipping
     if request.method == 'POST':
-        return HttpResponse('進入訂購確認頁面')
+        total = 0
+        for unit in cartlist:
+            total = total +int(unit[3])
+        grandtotal = total + shipping
+        message = ''
+        customername = request.POST['customername']
+        customerphone = request.POST['customerphone']
+        customeraddress = request.POST['customeraddress']
+        customeremail = request.POST['customeremail']
+        paytype = request.POST['paytype']
+        #---將訂購人的資料寫進OrderModel裡------
+        productorder = OrderModel.objects.create(subtotal = total, shipping = shipping, grandtotal = grandtotal , customername=customername, customerphone = customerphone, customeraddress = customeraddress, customeremail = customeremail, paytype = paytype)
+        productorder.save()
+        #---將該筆訂單的商品，寫進DetailModel裡-----
+        #---因為預判商品項目不會只有一筆，所以用for迴圈來逐筆將商品放入資料庫---
+        dtotal = 0
+        for unit in cartlist:
+            dtotal = int(unit[1])*int(unit[2])
+            unitdetail = DetailModel.objects.create(dorder = productorder, pname = unit[0], unitprice = int(unit[1]), quantity = int(unit[2]), dtotal = dtotal)
+            unitdetail.save()
+        return render(request, 'cartok.html', locals())
     else:
         return HttpResponse('你的post有問題哦')
             
