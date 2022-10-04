@@ -16,6 +16,10 @@
         width: 100%;
         background-color: #9983837c;
     }
+    .btn {
+        color: white; 
+        text-shadow: black 0.1em 0.1em 0.2em
+    }
 </style>
 {% endblock %}
 {% block content %}
@@ -96,13 +100,13 @@
                         <h5>郵政劃撥</h5>
                     </label>
                 </div>
-                <div class="btn-group d-flex justify-content-around" style="padding-top: 15px;">
+                <div class="btn-group d-flex justify-content-around" style="padding-top: 25px;">
                     <div class="text-center mx-2">
-                        <button type="button" class="btn btn-default btn-danger btn-lg"
+                        <button type="button" class="btn btn-default btn-secondary btn-lg"
                             onclick="window.location='/menu/'">&emsp;&emsp;繼續購物&emsp;&emsp;</button>
                     </div>
                     <div class="text-center mx-2">
-                        <button type="button" class="btn btn-default btn-danger btn-lg"
+                        <button type="button" class="btn btn-default btn-secondary btn-lg"
                             onclick="window.location='/cart/'">&ensp;修改購物車內容&ensp;</button>
                     </div>
                     <div class="text-center mx-2">
