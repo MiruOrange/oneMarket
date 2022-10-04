@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}
+<title>訂購完成</title>
+<style>
+    .detail-main {
+        padding: 70px;
+        background-repeat: no-repeat;
+    }
+    .img-cartok {
+        opacity: 0.20;
+        /* scale: 0.75; */
+        position: absolute;
+        z-index:-1;
+        margin-left: 15%;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="detail-main">
+    <img src="/static/images/page/nin_w.png" class="img-cartok">
+    <div style="margin: 10%;">
+        <div class="text-light">
+            <h2>感謝您的訂購!</h2>
+            <br>
+            <h3>忍者 XXX，您的忍具已訂購成功！ 我們會盡速且祕密的把忍具送至您指定的地點。
+            請在指定地點四周佈好木葉情報警戒結界，以確保您忍具的安全，感謝您的支持。</h3>
+        </div>
+    </div>
+    <div class="text-center mx-2" style="padding: 27.5px; padding-left: 180px; padding-right: 180px;">
+        <button type="submit" class="btn btn-danger btn-lg">查看訂購資訊</button>
+    </div>
+</div>
+{% endblock %}

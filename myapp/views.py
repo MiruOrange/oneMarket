@@ -176,6 +176,7 @@ def cartok(request):
             dtotal = int(unit[1])*int(unit[2])
             unitdetail = DetailModel.objects.create(dorder = productorder, pname = unit[0], unitprice = int(unit[1]), quantity = int(unit[2]), dtotal = dtotal)
             unitdetail.save()
+        # return HttpResponse('傳送ok')
         return render(request, 'cartok.html', locals())
     else:
         return HttpResponse('你的post有問題哦')
