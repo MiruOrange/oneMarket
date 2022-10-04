@@ -1,7 +1,10 @@
+from itertools import product
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from myapp.models import ProductModel, OrderModel, DetailModel
 import random
+from smtplib import SMTP, SMTPAuthenticationError, SMTPException
+from email.mime.text import MIMEText
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
@@ -166,6 +169,7 @@ def cartok(request):
         customeraddress = request.POST['customeraddress']
         customeremail = request.POST['customeremail']
         paytype = request.POST['paytype']
+        localcustomername = customername    #放一個區域變數，要把顧客姓名傳到前端去顯示。
         #---將訂購人的資料寫進OrderModel裡------
         productorder = OrderModel.objects.create(subtotal = total, shipping = shipping, grandtotal = grandtotal , customername=customername, customerphone = customerphone, customeraddress = customeraddress, customeremail = customeremail, paytype = paytype)
         productorder.save()
@@ -177,7 +181,37 @@ def cartok(request):
             unitdetail = DetailModel.objects.create(dorder = productorder, pname = unit[0], unitprice = int(unit[1]), quantity = int(unit[2]), dtotal = dtotal)
             unitdetail.save()
         # return HttpResponse('傳送ok')
+        cartlist = []   #在這裡清空購物車
+        #郵件寄送-------------
+        orderid = productorder.id
+        mailfrom = 'maosicha014@gmail.com'
+        mailpw = 'zhqhhihphxfmnpcw'
+        mailto = customeremail
+        mailsubject = '木葉商城-訂單成立通知'
+        mailcontent = customername+'您好，感謝您的光臨。您的忍具已訂購成功！\n我們會盡速且祕密的把忍具送至您指定的地點。\n請在指定地點四周佈好木葉情報警戒結界，以確保您忍具的安全，感謝您的支持。'
+        send_message(mailfrom, mailpw, mailto, mailsubject, mailcontent)
+        #郵件寄送--------------------
         return render(request, 'cartok.html', locals())
     else:
         return HttpResponse('你的post有問題哦')
+
+def send_message(mailfrom, mailpw, mailto, mailsubject, mailcontent):
+    global message
+    strSmtp = 'smtp.gmail.com:587'
+    strAccount = mailfrom
+    strPassword = mailpw
+    msg = MIMEText(mailcontent)
+    msg['Subject'] = mailsubject
+    mailto1 = mailto
+    server = SMTP(strSmtp)
+    server.ehlo()
+    server.starttls()
+    try:
+        server.login(strAccount, strPassword)
+        server.sendmail(strAccount, mailto1, msg.as_string())
+    except SMTPAuthenticationError:
+        message ='無法登入'
+    except:
+        message ='郵件無法發送產生錯誤'
+    server.quit()
             
