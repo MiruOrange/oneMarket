@@ -5,6 +5,7 @@ from myapp.models import ProductModel, OrderModel, DetailModel
 import random
 from smtplib import SMTP, SMTPAuthenticationError, SMTPException
 from email.mime.text import MIMEText
+from django.core.mail import send_mail
 
 # Create your views here.
 cartlist = []  #用來存放選購的商品串列
@@ -148,6 +149,7 @@ def cartorder(request):
         total = total + int(unit[3])    #unit[3]放的是累計商品價格
     grandtotal = total + shipping       #總價=累計商品價格+運費
     shipping1 = shipping
+
     #--以下將所有顧客資料和要給顧客的訊息都傳到cartorder.html去
     message1 = message
     customername1 = customername
@@ -170,9 +172,11 @@ def cartok(request):
         customeremail = request.POST['customeremail']
         paytype = request.POST['paytype']
         localcustomername = customername    #放一個區域變數，要把顧客姓名傳到前端去顯示。
+
         #---將訂購人的資料寫進OrderModel裡------
         productorder = OrderModel.objects.create(subtotal = total, shipping = shipping, grandtotal = grandtotal , customername=customername, customerphone = customerphone, customeraddress = customeraddress, customeremail = customeremail, paytype = paytype)
         productorder.save()
+
         #---將該筆訂單的商品，寫進DetailModel裡-----
         #---因為預判商品項目不會只有一筆，所以用for迴圈來逐筆將商品放入資料庫---
         dtotal = 0
@@ -180,17 +184,21 @@ def cartok(request):
             dtotal = int(unit[1])*int(unit[2])
             unitdetail = DetailModel.objects.create(dorder = productorder, pname = unit[0], unitprice = int(unit[1]), quantity = int(unit[2]), dtotal = dtotal)
             unitdetail.save()
-        # return HttpResponse('傳送ok')
-        cartlist = []   #在這裡清空購物車
-        #郵件寄送-------------
+
+        #---在這裡清空購物車
+        cartlist = []
+
+        #---郵件寄送-------------
         orderid = productorder.id
         mailfrom = 'maosicha014@gmail.com'
         mailpw = 'zhqhhihphxfmnpcw'
         mailto = customeremail
         mailsubject = '木葉商城-訂單成立通知'
-        mailcontent = customername+'您好，感謝您的光臨。您的忍具已訂購成功！\n我們會盡速且祕密的把忍具送至您指定的地點。\n請在指定地點四周佈好木葉情報警戒結界，以確保您忍具的安全，感謝您的支持。'
+        mailcontent = customername+"您好，感謝您的光臨。您的忍具已訂購成功！\n我們會盡速且祕密的把忍具送至您指定的地點。\n請在指定地點四周佈好木葉情報警戒結界，以確保您忍具的安全，感謝您的支持。"
         send_message(mailfrom, mailpw, mailto, mailsubject, mailcontent)
-        #郵件寄送--------------------
+        #----測試寄送html檔案
+        # mailaccount = 'maosicha014'
+        # send_mail(mailsubject, message, mailfrom, mailto, fail_silently=False, auth_user=None, auth_password=None, connection=None, test.html)
         return render(request, 'cartok.html', locals())
     else:
         return HttpResponse('你的post有問題哦')
@@ -214,4 +222,6 @@ def send_message(mailfrom, mailpw, mailto, mailsubject, mailcontent):
     except:
         message ='郵件無法發送產生錯誤'
     server.quit()
-            
+
+
+
