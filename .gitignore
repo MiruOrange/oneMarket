@@ -1,0 +1,9 @@
+/myapp/__pycache__/*.pyc
+
+/myapp/migrations/*.py
+
+/myapp/migrations/__pycache__/*.pyc
+
+/onePageMarket/__pycache__/*.pyc
+
+/.bak

@@ -1,0 +1,119 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}
+<title>查看訂單內容</title>
+<style>
+    .body {
+        background-image: url("/static/images/page/bg_image.png");
+        padding: 50px;
+    }
+
+    .form-label {
+        color: #dfd1d1;
+    }
+
+    .badge {
+        width: 100%;
+        background-color: #9983837c;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<form class="body" method="POST" action="/cartok/">
+    {% csrf_token %}
+    <div class="container-fluid py-5 my-5">
+        <div class="row">
+            <div class="col-12 col-md-6" style="padding: 50px;">
+                <p class="text-center fs-3"><span class="badge">購物清單</span></p>
+                <table class="table table-dark table-striped">
+                    <tr>
+                        <th>商品名稱</th>
+                        <th>單價</th>
+                        <th>數量</th>
+                        <th>金額</th>
+                    </tr>
+                    {% for product in cartlist1 %}
+                    <tr>
+                        <td>{{product.0}}</td>
+                        <td>{{product.1}}</td>
+                        <td>{{product.2}}</td>
+                        <td>{{product.3}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3">運費</td>
+                        <td>{{shipping1}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">總計</td>
+                        <td>{{grandtotal}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="user-info col-12 col-md-6 justify-content-center table-responsive" style="padding: 50px;">
+                <div class="mb-3">
+                    <p class="text-center text-danger fs-3"><span class="badge">訂購資訊</span></p>
+
+                    <div class="mb-3">
+                        <label for="customername" class="form-label">
+                            <h4>收件人</h4>
+                        </label>
+                        <input type="text" name="customername" class="form-control"
+                            style=" background-color: #595151; color: #dfd1d1;" id="customername"
+                            aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerphone" class="form-label">
+                            <h4>聯絡電話</h4>
+                        </label>
+                        <input type="text" name="customerphone" class="form-control"
+                            style=" background-color: #595151; color: #dfd1d1;" id="customerphone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customeraddress" class="form-label">
+                            <h4>寄送住址</h4>
+                        </label>
+                        <input type="text" name="customeraddress" class="form-control"
+                            style=" background-color: #595151; color: #dfd1d1;" id="customeraddress" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customeremail" class="form-label">
+                            <h4>電子郵件</h4>
+                        </label>
+                        <input type="email" name="customeremail" class="form-control"
+                            style=" background-color: #595151; color: #dfd1d1;" id="customeremail" required>
+                    </div>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="paytype" id="inlineRadio1" value="atm"
+                        checked>
+                    <label class="form-check-label" style="color: rgb(182, 182, 182);" for="inlineRadio1">
+                        <h5>ATM轉帳</h5>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="paytype" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" style="color: rgb(182, 182, 182);" for=" inlineRadio2">
+                        <h5>郵政劃撥</h5>
+                    </label>
+                </div>
+                <div class="d-flex justify-content-center" style="padding-top: 15px;">
+                    <div class="text-center mx-2">
+                        <button type="button" class="btn btn-danger btn-lg col-12 mx-auto"
+                            onclick="window.location='/menu/'">繼續購物</button>
+                    </div>
+                    <div class="text-center mx-2">
+                        <button type="button" class="btn btn-danger btn-lg col-12 mx-auto"
+                            onclick="window.location='/cart/'">修改購物車內容</button>
+                    </div>
+                </div>
+                <div class="text-center mx-2">
+                    <button type="submit" class="btn btn-danger btn-lg col-12 mx-auto mt-5">送出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}

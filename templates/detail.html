@@ -3,43 +3,68 @@
 {% block title %}
 <title>詳細商品資訊</title>
 <style>
-    .detail-main{
-        display:flex;
+    .detail-main {
+        display: flex;
         padding-top: 120px;
         padding-left: 8%;
         padding-bottom: 60px;
-        background-color: #a0a0a0;
+        /* background-color: #a0a0a0; */
+        background-image: url("/static/images/page/bg_image.png");
+        overflow-x: hidden;
     }
-    .detail-left{
-        text-align:center;
+    .detail-left {
+        text-align: center;
     }
-    .detail-right{
+    .detail-right {
         padding-top: 20px;
     }
-    .left-up{
+    .left-up {
         padding-bottom: 20px;
     }
-    .h3, .h4{
+    .h3,
+    .h4 {
         font-weight: bold;
     }
-    .col{
+    .col {
         padding-left: 50px;
     }
-    .mb-3{
+    .mb-3 {
         padding-right: 10px;
+    }
+    .qty {
+        width: 40px;
+        height: 35px;
+        text-align: center;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #aaa;
+    }
+    input.qtyplus {
+        width: 25px;
+        height: 35px;
+        border: 1px solid #aaa;
+        background: #f8f8f8;
+    }
+    input.qtyminus {
+        width: 25px;
+        height: 35px;
+        border: 1px solid #aaa;
+        background: #f8f8f8;
     }
 </style>
 {% endblock %}
 {% block content %}
-<div class="detail-main"> <!-- 欄位滿版 -->
+<div class="detail-main">
+    <!-- 欄位滿版 -->
     <div class="row">
-        <div class="col-12 col-md-6" >
+        <div class="col-12 col-md-6">
             <div class="left-up">
-                <img src="/static/images/products/{{product.pimage}}" alt="" width="90%"  width="30%" class="rounded-3" style="box-shadow:10px 10px 10px rgb(110, 110, 110)" >
+                <img src="/static/images/products/{{product.pimage}}" alt="" width="90%" width="30%" class="rounded-3"
+                    style="box-shadow:10px 10px 10px rgb(0, 0, 0)">
             </div>
         </div>
-        <div class="col-12 col-md-6">
-            <div class="detail-right">
+        <div class="col-12 col-sm-6">
+            <div class="detail-right" style="color: #c4afaf;">
                 <h2>{{product.pname}}</h2>
                 <h3>商品介紹</h3>
                 <br>
@@ -50,11 +75,24 @@
                 </div>
             </div>
             <br>
-            <div class="container">
-                <div class="mb-3">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="window.location='/addtocart/add/{{product.id}}/'">加入購物車</button>
+            <form id='myform' method='POST' action='/addtocart/add/{{product.id}}/'>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col col-sm-4 col-md-6 col-lg-4" style="padding-top: 6px;">
+                            <label for="" style="color: #aaaaaa;">選取數量&ensp;</label>
+                            <input type='button' value='-' class='qtyminus' field='quantity' />
+                            <input type='text' name='quantity' value='0' class='qty' />
+                            <input type='button' value='+' class='qtyplus' field='quantity' />
+                    </div>
+                    <div class="col col-sm-7 col-md-6 col-lg-7">
+                        <div class="container">
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-danger btn-lg">加入購物車</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>    
         </div>
     </div>
 </div>

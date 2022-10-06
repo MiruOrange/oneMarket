@@ -1,3 +1,4 @@
+# from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -16,6 +17,7 @@ class OrderModel(models.Model):
     customeremail = models.CharField(max_length=50)
     customeraddress = models.CharField(max_length=50)
     customerphone = models.CharField(max_length=50)
+    paytype = models.CharField(max_length=5, default='atm')
 
 class DetailModel(models.Model):
     dorder = models.ForeignKey('OrderModel', on_delete=models.CASCADE)
@@ -28,4 +30,6 @@ class User(AbstractUser):#使用django內鍵新增帳號，來增加需要的欄
     cBirthday = models.DateField(null=True)
     cPhone = models.CharField(max_length=10)
 
-
+class Visit(models.Model):
+    times = models.IntegerField()
+    
