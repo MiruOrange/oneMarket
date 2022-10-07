@@ -1,5 +1,6 @@
-from unittest.util import _MAX_LENGTH
+# from unittest.util import _MAX_LENGTH
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class ProductModel(models.Model):
@@ -25,5 +26,10 @@ class DetailModel(models.Model):
     quantity = models.IntegerField()
     dtotal = models.IntegerField()
     
+class User(AbstractUser):#使用django內鍵新增帳號，來增加需要的欄位
+    cBirthday = models.DateField(null=True)
+    cPhone = models.CharField(max_length=10)
 
-
+# class Visit(models.Model):
+#     times = models.IntegerField()
+    
