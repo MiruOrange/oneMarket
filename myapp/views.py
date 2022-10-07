@@ -43,13 +43,9 @@ def userlogin(request):
         userPassword = request.POST['userPassword']
         print(username+" "+userPassword)
         user = authenticate(username=username, password=userPassword) #password(資料庫裡面名稱ID)=userPassword(取得HTML前端使用者輸入的資料)
-        loginstatus = False
         if user is not None:
             auth.login(request, user)
-            # message = "登入成功!"
-            # print(conut)
-            request.User.is_authenticated
-            return render(request, 'index.html', locals())
+            return redirect('/index/')
         else:
             message = "登入失敗!"
             return render(request, 'userlogin.html', locals())
