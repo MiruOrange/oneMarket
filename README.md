@@ -3,7 +3,7 @@
 ## 流程圖
 ![image](https://user-images.githubusercontent.com/109893487/199408935-4ede2547-beec-4664-a573-b0915025b9d4.png)
 ## 專案內容說明
-- 含base.html總共需7個頁面，3個資料庫
+- 含base.html總共需7個頁面，3個表單
 - 前端使用HTML、CSS、Javascript、Bootstrap
 - 後端使用python Django
 - 資料庫使用ORM方式撰寫，前面開發使用mariadb，後面為將資料庫包裹在專案中，改用Django內建的sqlite
